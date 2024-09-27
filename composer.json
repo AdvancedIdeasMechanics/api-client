@@ -1,0 +1,53 @@
+{
+  "name": "advancedideasmechanics/api-client",
+  "description": "API Service to work with DotKernel",
+  "minimum-stability": "stable",
+  "license": "MIT",
+  "type": "library",
+  "keywords": [
+    "advancedideasmechanics",
+    "dotkernel",
+    "api",
+    "library",
+    "apiservice"
+  ],
+  "authors": [
+    {
+      "name": "Matthew Pallotta",
+      "email": "matt@advanced.im",
+      "homepage": "https://advanced.im"
+    }
+  ],
+  "support": {
+    "issues": "https://github.com/advancedideasmechanics/apiservice/issues",
+    "email": "support@advanced.im",
+    "source": "https://github.com/advancedideasmechanics/apiservice"
+  },
+  "homepage": "https://advanced.im/apiclient",
+  "require": {
+    "php": "~8.2.0 || ~8.3.0 || ~8.4.0",
+    "guzzlehttp/guzzle": "^7.9.2"
+  },
+  "require-dev": {
+    "dealerdirect/phpcodesniffer-composer-installer": "v1.0.0",
+    "squizlabs/php_codesniffer": "^3.10.3"
+  },
+  "autoload": {
+    "psr-4": {
+      "Advancedideasmechanics\\Api\\": "src/"
+    }
+  },
+  "scripts" : {
+    "check": [
+      "@cs-check",
+      "@test"
+    ],
+    "cs-check": "phpcs",
+    "cs-fix": "phpcbf"
+  },
+  "config": {
+    "allow-plugins": {
+      "dealerdirect/phpcodesniffer-composer-installer": true
+    }
+  }
+}
