@@ -1,6 +1,8 @@
 # API Client #
 An API client primarily to work with DotKernel API. https://github.com/dotkernel/api
 
+CURRENTLY UNSTABLE
+
 ## Install ##
 Install via composer
 
@@ -48,7 +50,7 @@ Below uses some DotKernel defaults. DO NOT use those values in production.
 `additionParms = []` # Optional Guzzle parameters.
 
 #### Send / Retrieve to API ####
-`endpoint = /someapiendpoint`
+`endpoint = /someapiendpoint` # start from the root of the baseurl
 
 `body = []` # Array of information that will be sent to api as json_encoded() can be just [] if using GET
 
