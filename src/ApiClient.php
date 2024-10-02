@@ -3,10 +3,10 @@ declare(strict_types=1);
 
 namespace Advancedideasmechanics\Api;
 
-use GuzzleHttp\Client as Guzzle;
+use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
 
-class Client implements ClientInterface
+class ApiClient implements ApiClientInterface
 {
     private $client;
     private array $oauthCredentials;
@@ -23,10 +23,11 @@ class Client implements ClientInterface
         string $userName,
         string $userSecret,
         string $tokenLocation,
+        string $tokenFilename,
         bool $debug = false,
         array $additionalParams = []
     ) {
-        $this->client = new Guzzle([
+        $this->client = new Client([
             'base_uri' => $baseUrl,
         ]);
 
@@ -44,7 +45,7 @@ class Client implements ClientInterface
             $additionalParams
         );
 
-        $this->tokenStoreFile = $tokenLocation . '/token.json';
+        $this->tokenStoreFile = $tokenLocation . '/' . $tokenFilename;
 
         $this->debug = $debug;
     }
