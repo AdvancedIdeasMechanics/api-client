@@ -150,7 +150,7 @@ class ApiClient implements ApiClientInterface
             $headers = array_merge($headers, $additionalHeaders);
 
             return $this->client->request($method, $endpoint, [
-                'body' => json_encode($body),
+                'body' => json_encode($body, JSON_PRETTY_PRINT),
                 'headers' => $headers,
             ]);
         } else {
