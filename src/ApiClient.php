@@ -83,16 +83,21 @@ class ApiClient implements ApiClientInterface
     private function refreshToken($refreshToken)
     {
         try {
+            $json = json_encode([
+                'grant_type' => 'refresh_token',
+                'client_id' => $this->oauthCredentials['client_id'],
+                'client_secret' => $this->oauthCredentials['client_secret'],
+                'scope' => $this->oauthCredentials['scope'],
+                'refresh_token' => $refreshToken
+            ]);
+
             $response = $this->client->request('POST', '/security/refresh-token', [
-                'form_params' => [
-                    'grant_type' => 'refresh_token',
-                    'refresh_token' => $refreshToken,
-                    'client_id' => $this->oauthCredentials['client_id'],
-                    'client_secret' => $this->oauthCredentials['client_secret'],
-                    'scope' => $this->oauthCredentials['scope'],
-                    'username' => $this->oauthCredentials['username'],
-                    'password' => $this->oauthCredentials['password']
-                ]
+                'body' => $json,
+                'headers' => [
+                    'Content-Type' => 'application/json',
+                    'Accept' => 'application/json',
+                ],
+                'debug' => $this->debug,
             ]);
 
             $tokenData = json_decode($response->getBody()->getContents(), true);
@@ -111,12 +116,14 @@ class ApiClient implements ApiClientInterface
             /*
              * If token.json exists load it, If not request access token from DotKernel API
              */
+            $tokenFileTime = time() - filemtime($this->tokenStoreFile);
             $storedToken = $this->loadToken();
-            if ($storedToken && isset($storedToken['expires_in']) && time() < $storedToken['expires_in']) {
+            if ($storedToken && isset($storedToken['expires_in']) && $tokenFileTime < $storedToken['expires_in']) {
                 return $storedToken['access_token'];
             } else {
-                $storedToken = $this->refreshToken($storedToken['refresh_token']);
-                return $storedToken['access_token'];
+                $accessToken = $this->refreshToken($storedToken['refresh_token']);
+
+                return $accessToken;
             }
         } else {
             $storedToken = $this->obtainToken();

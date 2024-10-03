@@ -3,3 +3,5 @@ composer.lock
 vendor
 test.php
 tmp
+token.json
+php_errors.log
