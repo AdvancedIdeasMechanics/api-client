@@ -54,6 +54,6 @@ Below uses some DotKernel defaults. DO NOT use those values in production.
 
 `body = []` # Array of information that will be sent to api as json_encoded() can be just [] if using GET
 
-`method = GET` # defaults to GET but any VERB you set for endpoint to accept
+`method = GET` # defaults to GET but you can use any HTTP VERB you set if the endpoint accepts it.
 
-`addtionalHeader = []` # Optional for Guzzle
+`additionalHeader = []` # Optional for Guzzle
