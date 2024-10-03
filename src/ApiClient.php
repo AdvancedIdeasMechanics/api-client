@@ -148,8 +148,9 @@ class ApiClient implements ApiClientInterface
         if ($accessToken) {
             $headers['Authorization'] = 'Bearer ' . $accessToken;
             $headers = array_merge($headers, $additionalHeaders);
+
             return $this->client->request($method, $endpoint, [
-                'json' => json_encode($body, JSON_PRETTY_PRINT),
+                'body' => json_encode($body),
                 'headers' => $headers,
             ]);
         } else {
